@@ -1,0 +1,9 @@
+FROM python:3.12-slim
+
+EXPOSE 8080
+WORKDIR /app
+
+COPY requirements.txt chef.py ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+ENTRYPOINT ["streamlit", "run", "chef.py", "--server.port=8080", "--server.address=0.0.0.0"]
