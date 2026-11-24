@@ -1,4 +1,0 @@
-streamlit
-google-cloud-logging
-# chef.py imports vertexai.preview.generative_models; keep a release that still ships it
-google-cloud-aiplatform==1.71.1
