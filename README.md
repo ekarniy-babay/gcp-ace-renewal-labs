@@ -20,19 +20,19 @@ cd gcp-ace-renewal-labs
 
 ## GSP393 - CI/CD pipelines
 
+One command in the lab's Cloud Shell, nothing else to do (region and zone are read from the lab project):
+
 ```bash
-REGION=<lab region> ZONE=<lab zone> bash gsp393-cicd-pipelines/run.sh
+curl -fsSL https://raw.githubusercontent.com/ekarniy-babay/gcp-ace-renewal-labs/main/gsp393-cicd-pipelines/run.sh | bash
 ```
 
-Tasks 1-7 in order: APIs, IAM roles, Artifact Registry `cicd-challenge`, clusters `cd-staging` and `cd-production`,
-skaffold build, Cloud Deploy pipeline `web-app` with targets, release `web-app-001` to staging, promote and approve to
-production, release `web-app-002`, rollback of staging. The script waits for the clusters and each rollout.
+If it says REGION not found: `... | REGION=<lab region> ZONE=<lab zone> bash`.
 
-At Task 6 it stops and asks you to make the code change the lab describes in `web/`, then press Enter.
-
-Fixed compared to the common online write-ups: no hard-coded project, `ZONE` is required, the `cloud deploy-config` typo
-in the `sed` for the production target, and the target files (the tutorial ships `target-staging` and `target-prod`
-templates; the lab wants `cd-staging` and `cd-production`).
+Tasks 1-7 of the lab text of 18.11.2026, in order: APIs, roles check, Cloud Build bucket, Artifact Registry
+`cicd-challenge`, clusters `cd-staging` and `cd-production`, skaffold build, Cloud Deploy pipeline `web-app` with
+targets, release `web-app-001` to staging, promote and approve to production, the `app.go` line 24 change
+(`leeroooooy app v2!!`), release `web-app-002`, rollback of staging to `web-app-001`. The script waits for the clusters
+and each rollout. Only the "Check my progress" buttons in the lab stay manual.
 
 ## GSP363 - Gemini and Streamlit
 
