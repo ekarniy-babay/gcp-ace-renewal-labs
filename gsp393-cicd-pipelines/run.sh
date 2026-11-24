@@ -6,6 +6,8 @@
 #   curl -fsSL .../run.sh | REGION=us-central1 ZONE=us-central1-a bash
 # Re-running is safe: existing bucket, repository, clusters, targets and releases are reused.
 set -euo pipefail
+# run via curl | bash reads the script from stdin: no gcloud prompt may read it
+export CLOUDSDK_CORE_DISABLE_PROMPTS=1
 
 meta() {  # project metadata key set by the lab
   gcloud compute project-info describe \
