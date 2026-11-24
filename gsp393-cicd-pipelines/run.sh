@@ -96,12 +96,11 @@ for c in "${CLUSTERS[@]}"; do
   kubectl --context "$c" apply -f kubernetes-config/web-app-namespace.yaml
 done
 
-envsubst < clouddeploy-config/target-staging.yaml.template |
-  sed -e "s/name: staging/name: cd-staging/" -e "s#clusters/staging#clusters/cd-staging#" \
-  > clouddeploy-config/target-cd-staging.yaml
-envsubst < clouddeploy-config/target-prod.yaml.template |
-  sed -e "s/name: prod/name: cd-production/" -e "s#clusters/prod#clusters/cd-production#" \
-  > clouddeploy-config/target-cd-production.yaml
+# exactly as the lab text: the check for Task 3 failed on targets that kept the old "staging cluster" description
+envsubst < clouddeploy-config/target-staging.yaml.template > clouddeploy-config/target-cd-staging.yaml
+envsubst < clouddeploy-config/target-prod.yaml.template > clouddeploy-config/target-cd-production.yaml
+sed -i "s/staging/cd-staging/" clouddeploy-config/target-cd-staging.yaml
+sed -i "s/prod/cd-production/" clouddeploy-config/target-cd-production.yaml
 for c in "${CLUSTERS[@]}"; do
   gcloud beta deploy apply --file "clouddeploy-config/target-$c.yaml"
 done
