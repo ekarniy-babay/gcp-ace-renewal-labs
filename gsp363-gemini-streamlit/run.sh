@@ -27,8 +27,10 @@ IMAGE="$REGION-docker.pkg.dev/$PROJECT/$AR_REPO/$SERVICE_NAME"
 export PROJECT REGION
 echo "project=$PROJECT region=$REGION bucket=$BUCKET chef=$CHEF_SRC model=${MODEL_ID:-<from chef.py>}"
 
+# the lab pre-enables the APIs; the student may not be allowed to enable them (GSP517, 24.11.2026)
 gcloud services enable run.googleapis.com aiplatform.googleapis.com \
-  cloudbuild.googleapis.com artifactregistry.googleapis.com
+  cloudbuild.googleapis.com artifactregistry.googleapis.com >/dev/null 2>&1 ||
+  echo "  (APIs not enabled by the script - the lab enables them itself)"
 
 echo "== Task 2: complete chef.py and upload it"
 cd ~
